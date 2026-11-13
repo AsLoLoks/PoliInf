@@ -13,9 +13,11 @@ namespace PoliInf.Exercises
             int userNumber;
             Random random = new Random();
             int randomNumber = random.Next(10);
-
-            for (int i = 0; i < numberOfGuesses; i++)
+            int i = 0;
+            // for lepszy
+            do
             {
+
                 try
                 {
                     string errorMessage = "Nie podano liczby calkowita lub podano text"; // nie obsuguje blendu zakresu zgadywania
@@ -53,6 +55,7 @@ namespace PoliInf.Exercises
                 }
 
             }
+            while (i < numberOfGuesses);
 
             return;
         }
