@@ -10,95 +10,55 @@ namespace Zadanie_drugie
     class Program
     {
         // reimplementacja z zestawu 1
-        static int guessingNumber(int randomNumber = -1) // wartos bazowa dla argumentu, jesli go nie podamy bedzie -1 co wylosuje nowy numer lub mozemy przekazac poprzedni numer
+        static void guessingNumber(int numberOfGuesses = 1) // wartos bazowa dla argumentu, jesli go nie podamy bedzie -1 co wylosuje nowy numer lub mozemy przekazac poprzedni numer
         {
             int userNumber;
+            Random random = new Random();
+            int randomNumber = random.Next(10);
             
-            if (randomNumber == -1) // jesli nie wpisalismy nic lub -1 wylosujemy nowy numer
+            for (int i = 0; i < numberOfGuesses; i++)
             {
-                Random random = new Random();
-                randomNumber = random.Next(10);
-            }
-            
-            try
-            {
-                string errorMessage = "Nie podano liczby calkowita lub podano text"; // nie obsuguje blendu zakresu zgadywania
-                userNumber = Utils.GetUserInputInt("Zgadnij liczbę od 0 do 9", errorMessage);
-            }
-            catch
-            {
-                Console.WriteLine("Zmarnowano jedno zgadniecie");
-                return randomNumber;
-            }
-
-            string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to:{randomNumber}.";
-
-            if (userNumber == randomNumber)
-            {
-                Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe" + mainMessage);
-                return randomNumber;
-            }
-            else
-            {
-                Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe" + mainMessage);
-                return -1;
-            }
-        }
-
-        static void guessingNumberMultipleTImes() 
-        {
-            int wylosowanaLiczba, wpisanaLiczba, licznikProb = 0;
-            string wpisanaWartosc;
-            bool czyLiczbaJestPoprawnieWpisana = true, czyZgadnieta = false;
-
-            Random generuj = new Random();
-            wylosowanaLiczba = generuj.Next(0, 10);
-
-            do
-            {
-                Console.WriteLine("Odgadnij liczbe od 0 do 9.");
-                wpisanaWartosc = Console.ReadLine();
-                czyLiczbaJestPoprawnieWpisana = int.TryParse(wpisanaWartosc, out wpisanaLiczba);
-                licznikProb += 1;
-
-                if (czyLiczbaJestPoprawnieWpisana == true)
+                try
                 {
-                    if (wpisanaLiczba == wylosowanaLiczba)
+                    string errorMessage = "Nie podano liczby calkowita lub podano text"; // nie obsuguje blendu zakresu zgadywania
+                    userNumber = Utils.GetUserInputInt("Zgadnij liczbę od 0 do 9", errorMessage);
+                }
+                catch
+                {
+                    if (numberOfGuesses > 1)
                     {
-                        Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe, twoja liczba to: " + wpisanaLiczba + " a wylosowana liczba to: " + wylosowanaLiczba + ".");
-                        Console.WriteLine("Zgadles/as w " + licznikProb + " probie.");
-                        Console.WriteLine("Nacisnij Enter, aby powrocic do menu.");
-                        Console.ReadLine();
-                        czyZgadnieta = true;
-                        break;
+                        Console.WriteLine("Zmarnowano jedno zgadniecie");
                     }
-                    else
-                    {
-                        if (wpisanaLiczba > wylosowanaLiczba)
-                        {
-                            Console.WriteLine("Za duza.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Za mala.");
-                        }
-                    }
+                    continue;
+                }
+
+                string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to:{randomNumber} w {i} prubach.";
+
+                if (userNumber == randomNumber)
+                {
+                    Console.WriteLine($"Brawo udalo ci sie odgadnac wylosowana liczbe {mainMessage}");
+                    return;
+                }
+                
+                if (numberOfGuesses == 1 || i + 1 == numberOfGuesses)
+                {
+                    Console.WriteLine("Nie udalo ci sie odgadnac wylosowanej liczby" + mainMessage);
+                }
+
+                if (userNumber > randomNumber)
+                {
+                    Console.WriteLine("Za duza.");
                 }
                 else
                 {
-                    Console.WriteLine("Niepoprawnie wpisana liczba.");
-                    Console.WriteLine("Nacisnij Enter, aby zgadywac dalej.");
-                    Console.ReadLine();
-                }
-
-            }while(licznikProb < 10);
-
-            if (czyZgadnieta == false)
-            {   
-                // aby wpisac ostatni strzal uzytkownika uzywam zmiennej 'wpisanaWartosc' aby wyswietlilo sie to co wpisal uzytkownik niezaleznie czy to liczba czy tekst
-                Console.WriteLine("Nie udalo ci sie zgadnac liczby przez 10 prob, twoj ostatni strzal to - " + wpisanaWartosc + " a wylosowana liczba to - " + wylosowanaLiczba + ".");
+                    Console.WriteLine("Za mala.");
+                }                    
+                
             }
         }
+            
+        
+
 
         static void diceRoleSimulation()
         {
@@ -433,7 +393,7 @@ namespace Zadanie_drugie
                         guessingNumber();
                         break;
                     case 2:
-                        guessingNumberMultipleTImes();
+                        guessingNumber(10);
                         break;
                     case 3:
                         diceRoleSimulation();
