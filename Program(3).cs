@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -126,9 +127,9 @@ namespace Zadanie_drugie
             Console.WriteLine(graf);
         }
 
-        enum wyborRuchu
+        enum rpsMove
         {
-            kamien,
+            kamien, // zostaja po polsku dal prostrzej implementacji enum parse
             papier,
             nozyce
         }
@@ -136,10 +137,10 @@ namespace Zadanie_drugie
         static void rockPaperScisors()
         {
             int ruchKomputeraWylosowany, punktyGracza = 0, punktyKomputera = 0;
-            wyborRuchu ruchGraczaEnum, ruchKomputeraEnum;
-            string wpisanyRuchGracza, ruchKomputera;
+            rpsMove ruchGraczaEnum, ruchKomputeraEnum;
+            string wpisanyRuchGracza, compuertMove;
             bool czyRuchWpisanyPoprawnie;
-            Random ruch = new Random();
+            Random random = new Random();
 
             do
             {
@@ -150,11 +151,11 @@ namespace Zadanie_drugie
                 Console.WriteLine(" 1 - Papier.");
                 Console.WriteLine(" 2 - Nozyce.");
                 wpisanyRuchGracza = Console.ReadLine();
-                czyRuchWpisanyPoprawnie = Enum.TryParse<wyborRuchu>(wpisanyRuchGracza, true, out ruchGraczaEnum);
+                czyRuchWpisanyPoprawnie = Enum.TryParse<rpsMove>(wpisanyRuchGracza, true, out ruchGraczaEnum);
 
-                ruchKomputeraWylosowany = ruch.Next(0,3);
-                ruchKomputera = Convert.ToString(ruchKomputeraWylosowany);
-                Enum.TryParse<wyborRuchu>(ruchKomputera, out ruchKomputeraEnum);
+                ruchKomputeraWylosowany = random.Next(0,3);
+                compuertMove = Convert.ToString(ruchKomputeraWylosowany);
+                Enum.TryParse<rpsMove>(compuertMove, out ruchKomputeraEnum);
 
                 if (czyRuchWpisanyPoprawnie == true && (int)ruchGraczaEnum < 3 && (int)ruchGraczaEnum >= 0)
                 {
@@ -167,7 +168,7 @@ namespace Zadanie_drugie
                     }
                     else
                     {
-                        if (ruchGraczaEnum == wyborRuchu.nozyce && ruchKomputeraEnum == wyborRuchu.papier)
+                        if (ruchGraczaEnum == rpsMove.nozyce && ruchKomputeraEnum == rpsMove.papier)
                         {
                             Console.WriteLine("");
                             Console.WriteLine("Ruch komputera: " + ruchKomputeraEnum + ".");
@@ -177,7 +178,7 @@ namespace Zadanie_drugie
                         }
                         else
                         {
-                            if (ruchGraczaEnum == wyborRuchu.papier && ruchKomputeraEnum == wyborRuchu.kamien)
+                            if (ruchGraczaEnum == rpsMove.papier && ruchKomputeraEnum == rpsMove.kamien)
                             {
                                 Console.WriteLine("");
                                 Console.WriteLine("Ruch komputera: " + ruchKomputeraEnum + ".");
@@ -187,7 +188,7 @@ namespace Zadanie_drugie
                             }
                             else
                             {
-                                if (ruchGraczaEnum == wyborRuchu.kamien && ruchKomputeraEnum == wyborRuchu.nozyce)
+                                if (ruchGraczaEnum == rpsMove.kamien && ruchKomputeraEnum == rpsMove.nozyce)
                                 {
                                     Console.WriteLine("");
                                     Console.WriteLine("Ruch komputera: " + ruchKomputeraEnum + ".");
@@ -233,101 +234,101 @@ namespace Zadanie_drugie
 
         static void multiplicationTableQuiz()
         {
-            int liczbaPierwsza, liczbaDruga, wynikMnozenia, odpowiedzGraczaInt, punktyGracza = 0;
-            string odpowiedzGracza;
+            int numberA, numberB, anwser, usersGuess, usersScore = 0;
             
-            Random losowaLiczba = new Random();
+            Random random = new Random();
 
             for (int i = 0; i < 5; i++) 
             {
-                liczbaPierwsza = losowaLiczba.Next(1, 11);
-                liczbaDruga = losowaLiczba.Next(1, 11);
+                numberA = random.Next(1, 11);
+                numberB = random.Next(1, 11);
 
-                wynikMnozenia = liczbaPierwsza * liczbaDruga;
-                Console.WriteLine("Podaj wynik mnozenia liczb:");
-                Console.WriteLine(" " + liczbaPierwsza + " * " + liczbaDruga + " = ?");
-                odpowiedzGracza = Console.ReadLine();
-
-                int.TryParse(odpowiedzGracza, out odpowiedzGraczaInt);
-
-                if( odpowiedzGraczaInt == wynikMnozenia)
+                anwser = numberA * numberB;
+                Console.WriteLine($" {numberA} * {numberB} = ?");
+                try
                 {
-                    punktyGracza = punktyGracza + 1;
+                    string errorMessage = "Nie podano liczby calkowita lub podano text";
+                    usersGuess = Utils.GetUserInputInt("Podaj wynik mnozenia tych liczb:", errorMessage);
+                }
+                catch
+                {
+                    Console.WriteLine("Nie zobywasz punktu");
+                    continue;
+                }
+
+
+                if( usersGuess == anwser)
+                {
+                    usersScore += 1;
                 }
             }
 
-            switch (punktyGracza)
+            string mainMessage = $", zdobyto {usersScore} punktow.";
+            switch (usersScore)
             {
-                case 0:
-                case 1:
-                case 2:
-                    Console.WriteLine("");
-                    Console.WriteLine("Ocena - niedostateczny, zdobyto " + punktyGracza + " punktow.");
-                    break;
                 case 3:
-                    Console.WriteLine("");
-                    Console.WriteLine("Ocena - dostateczny, zdobyto " + punktyGracza + " punktow.");
+                    Console.WriteLine($"Ocena - dostateczny{mainMessage}");
                     break;
                 case 4:
-                    Console.WriteLine("");
-                    Console.WriteLine("Ocena - dobry, zdobyto " + punktyGracza + " punktow.");
+                    Console.WriteLine($"Ocena - dobry{mainMessage}");
                     break;
                 case 5:
-                    Console.WriteLine("");
-                    Console.WriteLine("Ocena - bardzo dobry, zdobyto " + punktyGracza + " punktow.");
+                    Console.WriteLine($"Ocena - bardzo dobry{mainMessage}");
+                    break;
+                default:
+                    Console.WriteLine($"Ocena - niedostateczny{mainMessage}");
                     break;
             }
         }
 
         static void temperatureSimulation()
         {
-            double pomiarLosowy, pomiarPelny, pomiarWlasciwy, najmniejszyPomiar, najwiekszyPomiar, sredniaPomiarow, sumaWszystkichPomiarow;
-            double[] tablicaPomiarow = new double[20], pomiaryWyzszeNiz24 = new double[20];
-            int numerPomiaru, komorkaTablicy = 0;
+            double randomTest, wholeTest, correctTest, minTest, maxTest, avrageOfTests, sumOfAllTests;
+            double[] tests = new double[20];
+            List<double> testsInRange = new List<double>(); // u nas 20-24
+            int komorkaTablicy = 0;
 
-            Random wylosujPomiar = new Random();
+            Random random = new Random();
 
-            for (int i = 0; i < tablicaPomiarow.Length; i++) 
+            for (int i = 0; i < tests.Length; i++) 
             {
-                pomiarLosowy = wylosujPomiar.NextDouble();
-                pomiarPelny = (pomiarLosowy * (26 - 18)) + 18;
-                pomiarWlasciwy = Math.Round(pomiarPelny, 1);
-                tablicaPomiarow[i] = pomiarWlasciwy;
+                randomTest = random.NextDouble();
+                wholeTest = randomTest * 8 + 18;
+                correctTest = Math.Round(wholeTest, 1);
+                tests[i] = correctTest;
             }
 
             // Na sam poczatek za najmniejszy i za razem najwiekszy pomiar przyjmuje pierwsza wartosc tablicy oraz do sumy wszystkich pomiarow dodaje pierwsza wartosc tablicy, bo petla ja pomija
-            najmniejszyPomiar = tablicaPomiarow[0];
-            najwiekszyPomiar = tablicaPomiarow[0];
-            sumaWszystkichPomiarow = 0;
+            minTest = tests[0];
+            maxTest = tests[0];
+            sumOfAllTests = 0;
 
-            for (int i = 0; i < tablicaPomiarow.Length; i++)
+            for (int i = 0; i < tests.Length; i++)
             {
-                numerPomiaru = i + 1;
-                Console.WriteLine("Pomiar " + numerPomiaru + " " + tablicaPomiarow[i] + "°C");
+                Console.WriteLine($"Pomiar {i + 1} {tests[i]} °C");
 
-                if (najmniejszyPomiar > tablicaPomiarow[i])     // szukam najmniejszego pomiaru
+                if (minTest > tests[i])     // szukam najmniejszego pomiaru
                 {
-                    najmniejszyPomiar = tablicaPomiarow[i];
+                    minTest = tests[i];
                 }
 
-                if (najwiekszyPomiar < tablicaPomiarow[i])      // szukam najwiekszego pomiaru
+                if (maxTest < tests[i])      // szukam najwiekszego pomiaru
                 {
-                    najwiekszyPomiar = tablicaPomiarow[i];
+                    maxTest = tests[i];
                 }
 
-                if (tablicaPomiarow[i] > 24 || tablicaPomiarow[i] < 20)     // szukam pomiarow poza skali i dodaje je do tablicy
+                if (tests[i] > 24 || tests[i] < 20)     // szukam pomiarow poza skali i dodaje je do tablicy
                 {
-                    pomiaryWyzszeNiz24[komorkaTablicy] = tablicaPomiarow[i];
-                    komorkaTablicy++;
+                    testsInRange.Add(tests[i]);
                 }
-                sumaWszystkichPomiarow = sumaWszystkichPomiarow + tablicaPomiarow[i];
+                sumOfAllTests = sumOfAllTests + tests[i];
             }
-            sredniaPomiarow = Math.Round(sumaWszystkichPomiarow / 20, 1);
+            avrageOfTests = Math.Round(sumOfAllTests / 20, 1);
 
-            Console.WriteLine("Najmniejszy pomiar to: " + najmniejszyPomiar + "°C");
-            Console.WriteLine("Najwiekszy pomiar to: " + najwiekszyPomiar + "°C");
-            Console.WriteLine("Srednia pomiarow to: " + sredniaPomiarow + "°C");
-            Console.WriteLine("Liczba pomiarow z poza zakresu 20-24°C to: " + komorkaTablicy);
+            Console.WriteLine("Najmniejszy pomiar to: " + minTest + "°C");
+            Console.WriteLine("Najwiekszy pomiar to: " + maxTest + "°C");
+            Console.WriteLine("Srednia pomiarow to: " + avrageOfTests + "°C");
+            Console.WriteLine("Liczba pomiarow z poza zakresu 20-24°C to: " + testsInRange.Count);
 
         }
 
