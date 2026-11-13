@@ -421,7 +421,7 @@ namespace PoliInf.Exercises
             return bin;
         }
 
-        static bool programsLoop()
+        static bool programLoop()
         {
             int userChoise;
             bool dontShowDupplicateMessage = false;
@@ -494,7 +494,7 @@ namespace PoliInf.Exercises
 
             while (continueRunning)
             {
-                continueRunning = programsLoop();
+                continueRunning = programLoop();
             }
         }
     }
