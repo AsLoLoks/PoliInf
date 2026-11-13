@@ -35,9 +35,7 @@ namespace PoliInf.Exercises
             Console.WriteLine("Srednia " + amount + " liczb wylosowanych: " + avrage);
             Console.WriteLine("Najmniejsza liczba z liczb wylosowanych: " + min);
             Console.WriteLine("Najwieksza liczba z liczb wylosowanych: " + max);
-            Console.ReadLine();
         }
-        //zadanie1a();
 
         static void zadanie1ab()
         {
@@ -72,28 +70,24 @@ namespace PoliInf.Exercises
             Console.WriteLine("Srednia " + amount + " liczb wylosowanych: " + avrage);
             Console.WriteLine("Najmniejsza liczba z liczb wylosowanych: " + min);
             Console.WriteLine("Najwieksza liczba z liczb wylosowanych: " + max);
-            Console.ReadLine();
         }
 
         static void zadanie1b()
         {
             int amount, randomNumber, avrage, sum = 0, min = 100, max = -1;
             string liczbaLiczbLosowychWpisana, wypisaneLiczby = "";
-            Console.WriteLine();
-            liczbaLiczbLosowychWpisana = Console.ReadLine();
             try
             {
                 amount = Utils.GetUserInputInt("Podaj ile liczb wylosowac", "Podano text");
             }
             catch { return; }
 
-            Random losowa = new Random();
-            amount = int.Parse(liczbaLiczbLosowychWpisana);
+            Random random = new Random();
 
             int i = 0;
             do
             {
-                randomNumber = losowa.Next(0, 100);
+                randomNumber = random.Next(0, 100);
                 wypisaneLiczby = wypisaneLiczby + randomNumber + ", ";
 
                 sum += randomNumber;
@@ -112,7 +106,6 @@ namespace PoliInf.Exercises
             Console.WriteLine("Srednia " + amount + " liczb wylosowanych: " + avrage);
             Console.WriteLine("Najmniejsza liczba z liczb wylosowanych: " + min);
             Console.WriteLine("Najwieksza liczba z liczb wylosowanych: " + max);
-            Console.ReadLine();
 
         }
         //zadanie1b();
@@ -127,9 +120,10 @@ namespace PoliInf.Exercises
             {
                 for (int j = 1; j < 11; j++)
                 {
-                    line = i * j + " ";
+                    line += i * j + " ";
                 }
                 Console.WriteLine(line);
+                line = "";
 
             }
 
@@ -159,7 +153,7 @@ namespace PoliInf.Exercises
             {
                 reversed += alphabet[i];
             }
-
+            formated = "";
             for (int i = 0; i < reversed.Length; i++)
             {
                 if (i != reversed.Length - 1)
@@ -202,6 +196,7 @@ namespace PoliInf.Exercises
                 i--;
             } while (i >= 0);
             i = 0;
+            formated = "";
             do
             {
                 if (i != reversed.Length - 1)
@@ -245,6 +240,8 @@ namespace PoliInf.Exercises
                 reversed += alphabet[i];
                 i--;
             }
+
+            formated = "";
             i = 0;
             while (i < reversed.Length)
             {
@@ -261,7 +258,6 @@ namespace PoliInf.Exercises
 
             Console.WriteLine(formated);
         }
-        //zadanie3();
 
 
 
@@ -282,7 +278,6 @@ namespace PoliInf.Exercises
             }
             Console.WriteLine($"Znaleziono takich liczb: {count}");
         }
-        //zadanie4();
 
         static void isPalindrome()
         {
@@ -305,7 +300,6 @@ namespace PoliInf.Exercises
             return;
 
         }
-        //zadanie5();
 
         static void getPi()
         {
@@ -352,22 +346,18 @@ namespace PoliInf.Exercises
                 int czasTrwania = iKoniec - iStart;
                 Console.WriteLine("Czas trwania programu: ");
                 Console.WriteLine(czasTrwania + " ms");
-                Console.ReadLine();
 
             }
             catch
             {
                 Console.WriteLine("Niepoprawinie podano wartosc");
-                Console.ReadLine();
             }
         }
-        //zadanie6();            
 
         static void sumNumber()
         {
             int userNumber;
             int i = 0, suma = 0;
-            Console.WriteLine("Wpisz liczbe ktorej sume cyfr chcesz obliczyc: ");
 
             try
             {
@@ -380,13 +370,12 @@ namespace PoliInf.Exercises
             // wtedy number / 10 i number % 10
             while (i < userNumber.ToString().Length)
             {
-                suma += userNumber.ToString()[i];
+                suma += userNumber.ToString()[i] - 48; // '0' - 48 ascii code -48 daje zero njako zero
                 i++;
             }
             Console.WriteLine("Suma cyfr: " + suma);
 
         }
-        //zadanie6zestaw1();
 
         static void isPrime()
         {
@@ -424,7 +413,6 @@ namespace PoliInf.Exercises
             Console.WriteLine("To jest liczba pierwsza nie da sie ja podzielic przez inne liczby bez reszty");
 
         }
-        //zadanie7zestaw1();
 
         static void reverseNumer()
         {
@@ -442,7 +430,7 @@ namespace PoliInf.Exercises
 
             do
             {
-                reversedNumber += userNumberString;
+                reversedNumber += userNumberString[i];
                 i--;
             } while (i >= 0);
 
@@ -460,12 +448,100 @@ namespace PoliInf.Exercises
                     reversStripNumber += reversedNumber[i];
                 }
 
-                Console.WriteLine("Liczba odwrocona: " + reversedNumber);
-                Console.ReadLine();
                 i++;
             } while (i < reversedNumber.Length);
+            Console.WriteLine("Liczba odwrocona: " + reversStripNumber);
 
         }
-        //zadanie8zestaw1();
+
+        static bool programLoop()
+        {
+            int userChoise;
+            bool dontShowDupplicateMessage = false;
+            string menueMessage = """
+                Wybierz:
+                 1. Zadanie 1
+                 2. Wypisz tabelke mnozenia
+                 3. Wypisz alfabet
+                 4. Zadanie 4
+                 5. Jest palindromem
+                 6. Wylicz pi
+                 7. Sumuj numer
+                 8. Jest pierwsza
+                 9. Obroc numer
+                 10. Wyczysc konsole
+                 11. Zakoncz program
+                """;
+
+            string errorMessage = "Nie podano liczby calkowita lub podano text";
+            try
+            {
+                userChoise = Utils.GetUserInputInt(menueMessage, errorMessage);
+            }
+            catch
+            {
+                userChoise = 0;
+                dontShowDupplicateMessage = true;
+            }
+
+            switch (userChoise)
+            {
+                case 1:
+                    zadanie1a();
+                    zadanie1ab();
+                    zadanie1b();
+                    break;
+                case 2:
+                    writeMultiplicationTable();
+                    break;
+                case 3:
+                    writhAlphabetFor();
+                    writhAlphaberWhile();
+                    writhAlphaberDoWhile();
+                    break;
+                case 4:
+                    zadanie4();
+                    break;
+                case 5:
+                    isPalindrome();
+                    break;
+                case 6:
+                    getPi();                    
+                    break;
+                case 7:
+                    sumNumber();                   
+                    break;
+                case 8:
+                    isPrime();                  
+                    break;
+                case 9:
+                    reverseNumer();                   
+                    break;
+                case 10:
+                    Console.Clear();
+                    break;
+                case 11:
+                    Console.WriteLine("Zamknieto program");
+                    return false;
+                default:
+                    if (dontShowDupplicateMessage)
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Wybrano niepoprawna opcje");
+                    break;
+            }
+            return true;
+        }
+
+        public static void Main()
+        {
+            bool continueRunning = true;
+
+            while (continueRunning)
+            {
+                continueRunning = programLoop();
+            }
+        }
     }
 }

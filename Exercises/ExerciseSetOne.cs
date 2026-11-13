@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PoliInf.Exercises
 {
     
-    internal class ExerciseSetOne
+    public class ExerciseSetOne
     {
         static void pythagoras()
         {
@@ -488,7 +488,7 @@ namespace PoliInf.Exercises
             return true;
         }
 
-        static void Main(string[] args)
+        public static void Main()
         {
             bool continueRunning = true;
 

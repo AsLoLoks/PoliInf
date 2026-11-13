@@ -32,7 +32,7 @@ namespace PoliInf.Exercises
                     continue; //przegodzimy do nastempnej pnetli|zgadniecia
                 }
 
-                string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to:{randomNumber} w {i} prubach.";
+                string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to: {randomNumber} w {i+1} prubach.";
 
                 if (userNumber == randomNumber)
                 {
@@ -43,6 +43,7 @@ namespace PoliInf.Exercises
                 if (numberOfGuesses == 1 || i + 1 == numberOfGuesses)
                 {
                     Console.WriteLine("Nie udalo ci sie odgadnac wylosowanej liczby" + mainMessage);
+                    return;
                 }
 
                 if (userNumber > randomNumber)
@@ -53,7 +54,7 @@ namespace PoliInf.Exercises
                 {
                     Console.WriteLine("Za mala.");
                 }
-
+            i++;
             }
             while (i < numberOfGuesses);
 
@@ -72,12 +73,12 @@ namespace PoliInf.Exercises
 
             for (int i = 0; i < 600; i++)
             {
-                diceRoll = random.Next(0, 6); // traktujemy rzuty jako przesuniente o 1, 1->0, 2->1 ...
+                diceRoll = random.Next(6); // traktujemy rzuty jako przesuniente o 1, 1->0, 2->1 ...
                 diceCount[diceRoll]++;
 
             }
             bool oneDiceOff = false;
-            for (int i = 0; isCloseTo.Length > 0; i++)
+            for (int i = 0; i < isCloseTo.Length; i++)
             {
                 isCloseTo[i] = isCloseToNumer(diceCount[i]);
                 if (!isCloseToNumer(diceCount[i]))
@@ -152,7 +153,7 @@ namespace PoliInf.Exercises
 
             do
             {
-
+                Console.WriteLine(manueMessage);
                 userMove = Console.ReadLine();
                 validMove = Enum.TryParse<rpsMove>(userMove, true, out ruchGraczaEnum);
 
@@ -164,8 +165,8 @@ namespace PoliInf.Exercises
                     continue;
                 }
 
-                Console.WriteLine($"Ruch komputera: {ruchKomputeraEnum}.");
                 Console.WriteLine($"Ruch gracza: {ruchGraczaEnum}.");
+                Console.WriteLine($"Ruch komputera: {ruchKomputeraEnum}.");
                 if (ruchGraczaEnum == ruchKomputeraEnum)
                 {
                     Console.WriteLine("Remis graj dalej.");
@@ -363,7 +364,7 @@ namespace PoliInf.Exercises
             return true;
         }
 
-        static void Main(string[] args)
+        public static void Main()
         {
             bool continueRunning = true;
 
