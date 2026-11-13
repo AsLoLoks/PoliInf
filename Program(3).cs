@@ -9,38 +9,39 @@ namespace Zadanie_drugie
 {
     class Program
     {
-        static void guessingNumber()
+        // reimplementacja z zestawu 1
+        static int guessingNumber(int randomNumber = -1) // wartos bazowa dla argumentu, jesli go nie podamy bedzie -1 co wylosuje nowy numer lub mozemy przekazac poprzedni numer
         {
-            int wylosowanaLiczba, wpisanaLiczba;
-            string wpisanaWartosc;
-            bool czyLiczbaJestPoprawnieWpisana = true;
+            int userNumber;
+            
+            if (randomNumber == -1) // jesli nie wpisalismy nic lub -1 wylosujemy nowy numer
+            {
+                Random random = new Random();
+                randomNumber = random.Next(10);
+            }
+            
+            try
+            {
+                string errorMessage = "Nie podano liczby calkowita lub podano text"; // nie obsuguje blendu zakresu zgadywania
+                userNumber = Utils.GetUserInputInt("Zgadnij liczbę od 0 do 9", errorMessage);
+            }
+            catch
+            {
+                Console.WriteLine("Zmarnowano jedno zgadniecie");
+                return randomNumber;
+            }
 
-            Random generuj = new Random();
-            wylosowanaLiczba = generuj.Next(0, 10);
+            string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to:{randomNumber}.";
 
-            Console.WriteLine("Odgadnij liczbe od 0 do 9.");
-            wpisanaWartosc = Console.ReadLine();
-            czyLiczbaJestPoprawnieWpisana = int.TryParse(wpisanaWartosc, out wpisanaLiczba);
-
-            if (czyLiczbaJestPoprawnieWpisana == true) {  
-                if(wpisanaLiczba == wylosowanaLiczba)
-                {
-                    Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe, twoja liczba to: " + wpisanaLiczba + " a wylosowana liczba to: " + wylosowanaLiczba + ".");
-                    Console.WriteLine("Nacisnij Enter, aby powrocic do menu.");
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("Nie udalo ci sie odgadnac liczby twoja liczba to: " + wpisanaLiczba + " a wylosowana liczba to: " + wylosowanaLiczba + ".");
-                    Console.WriteLine("Nacisnij Enter, aby powrocic do menu.");
-                    Console.ReadLine();
-                }
+            if (userNumber == randomNumber)
+            {
+                Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe" + mainMessage);
+                return randomNumber;
             }
             else
             {
-                Console.WriteLine("Niepoprawnie wpisana liczba.");
-                Console.WriteLine("Nacisnij Enter, aby powrocic do menu.");
-                Console.ReadLine();
+                Console.WriteLine("Brawo udalo ci sie odgadnac wylosowana liczbe" + mainMessage);
+                return -1;
             }
         }
 
