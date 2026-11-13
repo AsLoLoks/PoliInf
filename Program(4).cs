@@ -138,7 +138,6 @@ namespace Zestaw3
 
             static void zadanie3()
             {
-                string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
                 string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";               
                 string formated = "";
 
@@ -156,7 +155,7 @@ namespace Zestaw3
                 Console.WriteLine(formated);
 
                 string reversed = "";
-                for(int i = alphabet.Length -1; 0 <= 0; i--)
+                for(int i = alphabet.Length -1; i >= 0; i--)
                 {
                     reversed += alphabet[i];
                 }
@@ -175,14 +174,13 @@ namespace Zestaw3
 
                 Console.WriteLine(formated);     
             }
-            static void zadanie3()
+            static void zadanie3b()
             {
-                string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
                 string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 string formated = "";
                 int i = 0;
-                for (int i = 0; i < alphabet.Length; i++)
-                {
+               do
+               {
                     if (i != alphabet.Length - 1)
                     {
                         formated += $"{alphabet[i]}, ";
@@ -191,17 +189,20 @@ namespace Zestaw3
                     {
                         formated += $"{alphabet[i]}.";
                     }
-                }while(i < alphabet.Length);
+                    i++;
+               }while(i < alphabet.Length);
 
                 Console.WriteLine(formated);
 
                 string reversed = "";
-                for (int i = alphabet.Length - 1; 0 <= 0; i--)
+                i = alphabet.Length - 1;
+                do
                 {
                     reversed += alphabet[i];
-                }
-
-                for (int i = 0; i < reversed.Length; i++)
+                    i--;
+                }while (i >= 0) ;
+                i = 0;
+                do
                 {
                     if (i != reversed.Length - 1)
                     {
@@ -211,61 +212,58 @@ namespace Zestaw3
                     {
                         formated += $"{reversed[i]}.";
                     }
+                    i++;
+                }while(i < reversed.Length);
+
+                Console.WriteLine(formated);
+            }
+
+            static void zadanie3a()
+            {
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                string formated = "";
+                int i = 0;
+                while (i < alphabet.Length)
+                {
+                    if (i != alphabet.Length - 1)
+                    {
+                        formated += $"{alphabet[i]}, ";
+                    }
+                    else
+                    {
+                        formated += $"{alphabet[i]}.";
+                    }
+                    i++;
+                } 
+
+                Console.WriteLine(formated);
+
+                string reversed = "";
+                i = alphabet.Length - 1;
+                while (i >= 0)
+                {
+                    reversed += alphabet[i];
+                    i--;
+                }
+                i = 0;
+                while (i < reversed.Length)
+                {
+                    if (i != reversed.Length - 1)
+                    {
+                        formated += $"{reversed[i]}, ";
+                    }
+                    else
+                    {
+                        formated += $"{reversed[i]}.";
+                    }
+                    i++;
                 }
 
                 Console.WriteLine(formated);
             }
             //zadanie3();
 
-            static void zadanie3a()
-            {
-                string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-                string literyAZ = "", literyZA = "";
-                int licznik;
-
-                licznik = 0;
-                while (licznik < tablicaLiter.Length)
-                {
-                    literyAZ += tablicaLiter[licznik] + ", ";
-                    licznik++;
-                }
-                licznik = 26;
-                while (licznik > 0)
-                {
-                    literyZA += tablicaLiter[licznik - 1] + ", ";
-                    licznik--;
-                }
-
-                Console.WriteLine(literyAZ);
-                Console.WriteLine(literyZA);
-                Console.ReadLine();
-            }
-            //zadanie3a();
-
-            static void zadanie3b()
-            {
-                string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-                string literyAZ = "", literyZA = "";
-                int licznik;
-
-                licznik = 0;
-                do
-                {
-                    literyAZ += tablicaLiter[licznik] + ", ";
-                    licznik++;
-                } while (licznik < tablicaLiter.Length);
-
-                licznik = 26;
-                do
-                {
-                    literyZA += tablicaLiter[licznik - 1] + ", ";
-                    licznik--;
-                } while (licznik > 0);
-                Console.WriteLine(literyAZ);
-                Console.WriteLine(literyZA);
-                Console.ReadLine();
-            }
-            //zadanie3b();
+            
 
             static void zadanie4()
             {
