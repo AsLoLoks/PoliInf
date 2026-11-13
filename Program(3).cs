@@ -285,8 +285,8 @@ namespace Zadanie_drugie
         {
             double randomTest, wholeTest, correctTest, minTest, maxTest, avrageOfTests, sumOfAllTests;
             double[] tests = new double[20];
-            List<double> testsInRange = new List<double>(); // u nas 20-24
-            int komorkaTablicy = 0;
+            List<double> testsInRange = new List<double>(); // u nas 20-24 
+            //lista to tablica do kturej mozna dodawac i odejmowac wartosci ma zmienna dlugosc
 
             Random random = new Random();
 
@@ -319,7 +319,7 @@ namespace Zadanie_drugie
 
                 if (tests[i] > 24 || tests[i] < 20)     // szukam pomiarow poza skali i dodaje je do tablicy
                 {
-                    testsInRange.Add(tests[i]);
+                    testsInRange.Add(tests[i]); //dodajemy do listy
                 }
                 sumOfAllTests = sumOfAllTests + tests[i];
             }
