@@ -8,7 +8,7 @@ namespace Zestaw3
     {
         static void Main(string[] args)
         {
-            static void zadanie1Aa()
+            static void zadanie1a()
             {
                 int amount = 5, randomNumber, avrage, sum = 0, min = 100, max = -1;
                 string wypisaneLiczby = "";
@@ -37,9 +37,43 @@ namespace Zestaw3
                 Console.WriteLine("Najwieksza liczba z liczb wylosowanych: " + max);
                 Console.ReadLine();
             }
-            //zadanie1Aa();
+            //zadanie1a();
 
-            
+            static void zadanie1ab()
+            {
+                int amount, randomNumber, avrage, sum = 0, min = 100, max = -1;
+                string wypisaneLiczby = "";
+                Random random = new Random();
+
+                try
+                {
+                    amount = Utils.GetUserInputInt("Podaj ile liczb wylosowac", "Podano text");
+                }
+                catch { return; }
+
+
+                for (int i = 0; i < amount; i++)
+                {
+                    randomNumber = random.Next(0, 100);
+                    sum += randomNumber;
+                    wypisaneLiczby = wypisaneLiczby + randomNumber + ", ";
+
+                    if (randomNumber > max)
+                    {
+                        max = randomNumber;
+                    }
+                    if (randomNumber < min)
+                    {
+                        min = randomNumber;
+                    }
+                }
+                avrage = sum / amount;
+                Console.WriteLine("wylosowane liczby: " + wypisaneLiczby);
+                Console.WriteLine("Srednia " + amount + " liczb wylosowanych: " + avrage);
+                Console.WriteLine("Najmniejsza liczba z liczb wylosowanych: " + min);
+                Console.WriteLine("Najwieksza liczba z liczb wylosowanych: " + max);
+                Console.ReadLine();
+            }
 
             static void zadanie1b()
             {
@@ -105,7 +139,7 @@ namespace Zestaw3
             static void zadanie3()
             {
                 string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";               
                 string formated = "";
 
                 for(int i = 0; i < alphabet.Length; i++)
@@ -119,24 +153,67 @@ namespace Zestaw3
                         formated += $"{alphabet[i]}.";
                     }
                 }
+                Console.WriteLine(formated);
 
-                string reversed;
-                
-                string literyAZ = "", literyZA = "";
-                int licznik;
-
-                for (licznik = 26; licznik > 0; licznik--)
+                string reversed = "";
+                for(int i = alphabet.Length -1; 0 <= 0; i--)
                 {
-                    literyZA += tablicaLiter[licznik - 1] + ", ";
-                }
-                for (licznik = 0; licznik < tablicaLiter.Length; licznik++)
-                {
-                    literyAZ += tablicaLiter[licznik] + ", ";
+                    reversed += alphabet[i];
                 }
 
-                Console.WriteLine(literyAZ);
-                Console.WriteLine(literyZA);
-                Console.ReadLine();
+                for (int i = 0; i < reversed.Length; i++)
+                {
+                    if (i != reversed.Length - 1)
+                    {
+                        formated += $"{reversed[i]}, ";
+                    }
+                    else
+                    {
+                        formated += $"{reversed[i]}.";
+                    }
+                }
+
+                Console.WriteLine(formated);     
+            }
+            static void zadanie3()
+            {
+                string[] tablicaLiter = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                string formated = "";
+                int i = 0;
+                for (int i = 0; i < alphabet.Length; i++)
+                {
+                    if (i != alphabet.Length - 1)
+                    {
+                        formated += $"{alphabet[i]}, ";
+                    }
+                    else
+                    {
+                        formated += $"{alphabet[i]}.";
+                    }
+                }while(i < alphabet.Length);
+
+                Console.WriteLine(formated);
+
+                string reversed = "";
+                for (int i = alphabet.Length - 1; 0 <= 0; i--)
+                {
+                    reversed += alphabet[i];
+                }
+
+                for (int i = 0; i < reversed.Length; i++)
+                {
+                    if (i != reversed.Length - 1)
+                    {
+                        formated += $"{reversed[i]}, ";
+                    }
+                    else
+                    {
+                        formated += $"{reversed[i]}.";
+                    }
+                }
+
+                Console.WriteLine(formated);
             }
             //zadanie3();
 
