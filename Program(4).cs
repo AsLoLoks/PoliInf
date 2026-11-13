@@ -267,21 +267,20 @@ namespace Zestaw3
 
             static void zadanie4()
             {
-                int liczbaA, liczbaB, licznik = 0;
+                int numberA, numberB, count = 0;
 
-                for ( int liczba = 1000; liczba < 10000; liczba++  )
+                for ( int i = 1000; i < 10000; i++  )
                 {
-                    liczbaA = liczba / 100;
-                    liczbaB = liczba % 100;
+                    numberA = i / 100;
+                    numberB = i % 100;
 
-                    if (liczbaA * liczbaA + liczbaB * liczbaB == liczba) 
+                    if (numberA * numberA + numberB * numberB == i) 
                     {
-                        licznik++;
-                        Console.WriteLine(liczbaA + " * " + liczbaA + " + " + liczbaB + " * " + liczbaB + " = " + liczba);
+                        count++;
+                        Console.WriteLine($"{numberA} ^ 2 + {numberB} ^ 2 = {i}");
                     }
                 }
-                Console.WriteLine("Znaleziono takich liczb: " + licznik);
-                Console.ReadLine( );
+                Console.WriteLine($"Znaleziono takich liczb: {count}");
             }
             //zadanie4();
 
