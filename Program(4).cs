@@ -286,49 +286,24 @@ namespace Zestaw3
 
             static void zadanie5()
             {
-                string podanyCiagZnakow;
+                string userWord;
                 Console.WriteLine("Podal liczbe lub zdanie lub slowo");
-                podanyCiagZnakow = Console.ReadLine();
+                userWord = Console.ReadLine();
 
-                podanyCiagZnakow = podanyCiagZnakow.Replace(" ", "").ToLower();
-
-                char[] tablica1 = new char[podanyCiagZnakow.Length];
-                char[] tablica2 = new char[podanyCiagZnakow.Length];
-                bool czySieZgadza = true;
-                int licznik = 0;
-                
-
-                for (int i = 0; i < podanyCiagZnakow.Length; i++)
+                userWord = userWord.Replace(" ", "").ToLower();
+                int j = userWord.Length - 1;
+                for(int i = 0; i <= Math.Round((double) userWord.Length / 2); i++)
                 {
-                    tablica1[i] = podanyCiagZnakow[i];
-                }
-                for (int i = podanyCiagZnakow.Length; i > 0; i--)
-                {
-                    tablica2[licznik] = podanyCiagZnakow[i-1];
-                    licznik++;
-                }
-                for(int i = 0; i < podanyCiagZnakow.Length; i++)
-                {
-                    if (tablica2[i] == tablica1[i] )
+                    if(userWord[i] != userWord[j])
                     {
-                        czySieZgadza = true;
+                        Console.WriteLine("To nie jest palindrom");
+                        return;
                     }
-                    else
-                    {
-                        czySieZgadza = false;
-                        break;
-                    }
+                    j--;
                 }
-                if ( czySieZgadza == true)
-                {
-                    Console.WriteLine("To jest palindrom");
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("To nie jest palindrom");
-                    Console.ReadLine();
-                }
+                Console.WriteLine("To jest palindrom");
+                return;
+
             }
             //zadanie5();
 
