@@ -29,7 +29,7 @@ namespace Zadanie_drugie
                     {
                         Console.WriteLine("Zmarnowano jedno zgadniecie");
                     }
-                    continue;
+                    continue; //przegodzimy do nastempnej pnetli|zgadniecia
                 }
 
                 string mainMessage = $", twoja liczba to: {userNumber} a wylosowana liczba to:{randomNumber} w {i} prubach.";
@@ -55,6 +55,8 @@ namespace Zadanie_drugie
                 }                    
                 
             }
+
+            return;
         }
             
         
@@ -62,97 +64,66 @@ namespace Zadanie_drugie
 
         static void diceRoleSimulation()
         {
-            int wartoscNaKostce, liczbaRzutow = 0, licznikJedynek = 0, licznikDwojek = 0, licznikTrojek = 0, licznikCzworek = 0, licznikPiatek = 0, licznikSzostek = 0;
-            bool czyJedynkiZblizoneDo100, czyDwojkiZblizoneDo100, czyTrojkiZblizoneDo100, czyCzworkiZblizoneDo100, czyPiatkiZblizoneDo100, czySzostkiZblizoneDo100;
-            Random rzut = new Random();
-
-            do
+            int diceRoll;
+            int[] diceCount = { 0, 0, 0, 0, 0, 0};  //int[] diceCount = new int[6];
+            bool[] isCloseTo = new bool[6];  // numery srednio ale 100 nie bede pisal recznie
+            Random random = new Random();
+            
+            for (int i = 0; i < 600; i++)
             {
-                liczbaRzutow += 1;
-                wartoscNaKostce = rzut.Next(1,7);
-                switch (wartoscNaKostce)
-                {
-                    case 1:
-                        licznikJedynek += 1;
-                        break;
-                    case 2:
-                        licznikDwojek += 1;
-                        break;
-                    case 3:
-                        licznikTrojek += 1;
-                        break;
-                    case 4:
-                        licznikCzworek += 1;
-                        break;
-                    case 5:
-                        licznikPiatek += 1;
-                        break;
-                    case 6:
-                        licznikSzostek += 1;
-                        break;
-                }
-            } while (liczbaRzutow < 600);
+                diceRoll = random.Next(0, 6); // traktujemy rzuty jako przesuniente o 1, 1->0, 2->1 ...
+                diceCount[diceRoll]++;
 
-            czyJedynkiZblizoneDo100 = czyZblizonaDo100(licznikJedynek);
-            czyDwojkiZblizoneDo100 = czyZblizonaDo100(licznikDwojek);
-            czyTrojkiZblizoneDo100 = czyZblizonaDo100(licznikTrojek);
-            czyCzworkiZblizoneDo100 = czyZblizonaDo100(licznikCzworek);
-            czyPiatkiZblizoneDo100 = czyZblizonaDo100(licznikPiatek);
-            czySzostkiZblizoneDo100 = czyZblizonaDo100(licznikSzostek);
-
-            if ( czyJedynkiZblizoneDo100 == true && czyDwojkiZblizoneDo100 == true && czyTrojkiZblizoneDo100 == true && czyCzworkiZblizoneDo100 == true && czyPiatkiZblizoneDo100 == true && czySzostkiZblizoneDo100 == true )
-            {
-                Console.WriteLine("Wszystkie ilosci wyrzuconych oczek kostka sa zblizone do 100 z bledem pomiaru 10.");
             }
-            else
+            bool oneDiceOff = false;
+            for (int i = 0; isCloseTo.Length > 0; i++)
+            {
+                isCloseTo[i] = isCloseToNumer(diceCount[i]);
+                if (!isCloseToNumer(diceCount[i]))
+                {
+                    oneDiceOff = true;
+                }
+            }
+
+
+            if (oneDiceOff)
             {
                 Console.WriteLine("Nie wszystkie ilosci wyrzuconych oczek kostka sa zblizone do 100 z bledem pomiaru 10.");
             }
+            else
+            {
+                Console.WriteLine("Wszystkie ilosci wyrzuconych oczek kostka sa zblizone do 100 z bledem pomiaru 10.");
+            }
 
-            Console.WriteLine("");
             Console.WriteLine("Wykres dla liczby wyrzuconych oczek (jedna gwiazdka to 5 rzutow o danej wartosci):");
-            Console.WriteLine("");
-            Console.Write(" 1: ");
-            wykresIlosci(licznikJedynek);
-            Console.Write(" 2: ");
-            wykresIlosci(licznikDwojek);
-            Console.Write(" 3: ");
-            wykresIlosci(licznikTrojek);
-            Console.Write(" 4: ");
-            wykresIlosci(licznikCzworek);
-            Console.Write(" 5: ");
-            wykresIlosci(licznikPiatek);
-            Console.Write(" 6: ");
-            wykresIlosci(licznikSzostek);
-            Console.WriteLine("");
+            for (int i = 0; i < diceCount.Length; i++)
+            {
+                Console.Write($" {i+1}: ");
+                grafTheAmountInChar(diceCount[i]);
+            }
+
+            return;
         }
 
         // funkcja sprawdzajaca czy dana liczba jest zblizona do 100 z bledem +- 10
-        static bool czyZblizonaDo100(int liczbaBadana)
+        static bool isCloseToNumer(int testedNumber, int targetNumber = 100, int range = 10)
         {
-            int roznica;
-            roznica = liczbaBadana - 100;
-            if (roznica <= 10 && roznica >= -10) 
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            int diffrenc;
+            diffrenc = testedNumber - targetNumber;
+            return diffrenc <= range && diffrenc >= -range;      // nie potrzeba if mozemy zwrucic wynik porownania      
         }
 
         // rysuje wykres dla kazdej 5 rysuje 1 '*' (w zaokragleniu)
-        static void wykresIlosci(int ilosc )
+        static void grafTheAmountInChar(int count, int oneCharacterIsEquale = 5, char characret = '*')
         {
-            string wykres = "";
-            int iloraz;
-            iloraz = ilosc / 5;
-            for (int i = 0; i < iloraz; i++) 
+            string graf = "";
+            int totalAmount;
+            totalAmount = count / oneCharacterIsEquale;
+            for (int i = 0; i < totalAmount; i++) 
             {
-                wykres = wykres + " * ";
+                graf += characret;
             }
-            Console.WriteLine(wykres);
+            Console.WriteLine(graf);
         }
 
         enum wyborRuchu
