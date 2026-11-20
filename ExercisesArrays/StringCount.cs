@@ -34,6 +34,7 @@ namespace PoliInf.ExercisesArrays
             for(int i = 0; i < text.Length; i++)
             {
                 char character = text[i];
+                if(character > 127) continue;
                 characterCount[character]++;
             }
         }
@@ -42,17 +43,17 @@ namespace PoliInf.ExercisesArrays
             countCapitalLetters = 0;
             for(int i = 65; i < 91; i++)  //A-Z
             {
-                countCapitalLetters++;
+                countCapitalLetters += characterCount[i];
             }
             countSmallLetters = 0;
             for(int i = 97; i < 123; i++)  //a-z
             {
-                countSmallLetters++;
+                countSmallLetters += characterCount[i];
             }
             countDigits = 0;
             for(int i = 48; i < 58; i++)  //0-9
             {
-                countDigits++;
+                countDigits += characterCount[i];
             }
             countWhiteSpaces = characterCount[9] + characterCount[10] + characterCount[32]; // tab /n space
 
@@ -71,8 +72,5 @@ namespace PoliInf.ExercisesArrays
         {
             return countWhiteSpaces;
         }
-
-
-
     }
 }

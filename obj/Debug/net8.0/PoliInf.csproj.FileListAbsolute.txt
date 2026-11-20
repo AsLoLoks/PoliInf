@@ -1,0 +1,15 @@
+/home/rumadai/poliinf/PoliInf/bin/Debug/net8.0/PoliInf
+/home/rumadai/poliinf/PoliInf/bin/Debug/net8.0/PoliInf.deps.json
+/home/rumadai/poliinf/PoliInf/bin/Debug/net8.0/PoliInf.runtimeconfig.json
+/home/rumadai/poliinf/PoliInf/bin/Debug/net8.0/PoliInf.dll
+/home/rumadai/poliinf/PoliInf/bin/Debug/net8.0/PoliInf.pdb
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.GeneratedMSBuildEditorConfig.editorconfig
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.AssemblyInfoInputs.cache
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.AssemblyInfo.cs
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.csproj.CoreCompileInputs.cache
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.sourcelink.json
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.dll
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/refint/PoliInf.dll
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.pdb
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/PoliInf.genruntimeconfig.cache
+/home/rumadai/poliinf/PoliInf/obj/Debug/net8.0/ref/PoliInf.dll
