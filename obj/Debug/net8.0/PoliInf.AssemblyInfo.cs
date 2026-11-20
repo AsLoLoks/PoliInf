@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PoliInf")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+429b518444fdaa454a351d15602d4cde2dcf192d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79443ff769f99552a367379a3e4967572d9ff64d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PoliInf")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PoliInf")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
