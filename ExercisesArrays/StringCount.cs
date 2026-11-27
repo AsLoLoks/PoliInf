@@ -2,22 +2,83 @@ using System.Diagnostics.Contracts;
 
 namespace PoliInf.ExercisesArrays
 {
-    public class StringCount
+    public class StringMethods
     {
         int[] characterCount = new int[127];
         int countSmallLetters = 0;
         int countCapitalLetters = 0;
         int countDigits = 0;
         int countWhiteSpaces = 0;
+        string censoredCapitalLetters = "";
+        int mostImportantBitValue = -1;
 
-        public StringCount(string text)
+        public StringMethods(string text)
         {
+            // a
             fillCountTableWithZeros();
             countAll(text);
             updateCounters();
+            // b
+            censorCapitalLetter(text);
+            //c
+            findMostImportantBitValue(text);
+        }
+        
+        public string GetCensoredCapitalText()
+        {
+            return censoredCapitalLetters;
         }
 
+        
+        public int GetMostImportantBitValue()
+        {
+            return mostImportantBitValue;
+        }
 
+        void findMostImportantBitValue(string bits)
+        {
+            bool isProblem = false;
+            for (int i = 0; i < bits.Length; i++)
+            {
+                if(bits[i] != '1' && bits[i] != '0')
+                {
+                    isProblem = true;
+                    break;
+                }
+            }
+            // c) Wczytaj 8-bitową liczbę binarną (np. 00101100) i wypisz wagę najbardziej znaczącej jedynki (tu: 32).
+            //     – Wskazówka: pierwsza jedynka od lewej na pozycji i ma wagę 2^(7 − i). Sprawdź, czy wczytano dokładnie 8 znaków 0 lub 1.
+            if( bits.Length == 8 && isProblem == false)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    if (bits[i] == '1')
+                    {
+                        // wynikk = 2^ (7-1)
+                        mostImportantBitValue = 2^(7-i);
+                    }
+                }
+            }
+            else
+            {
+                mostImportantBitValue = -1;
+            }
+        }
+
+        void censorCapitalLetter(string text)
+        {
+            for ( int i = 0; i < text.Length; i++)
+            {
+                if( text[i] >= 65 && text[i] < 91)
+                {
+                    censoredCapitalLetters += "*";
+                }
+                else
+                {
+                    censoredCapitalLetters += text[i];
+                }
+            }
+        }
 
         void fillCountTableWithZeros()
         {
@@ -26,6 +87,12 @@ namespace PoliInf.ExercisesArrays
                 characterCount[i] = 0;
             }
         }
+
+        //  countCapitalLetters = 0;
+        //     for(int i = 65; i < 91; i++)  //A-Z
+        //     {
+        //         countCapitalLetters += characterCount[i];
+        //     }
 
        
 
@@ -58,17 +125,17 @@ namespace PoliInf.ExercisesArrays
             countWhiteSpaces = characterCount[9] + characterCount[10] + characterCount[32]; // tab /n space
 
         }
-        public int getCounterLetters()
+        public int GetCounterLetters()
         {
             return countCapitalLetters + countSmallLetters;
         }
 
-        public int getCounterDigits()
+        public int GetCounterDigits()
         {
             return countDigits;
         }
 
-        public int getCounterWhiteSpaces()
+        public int GetCounterWhiteSpaces()
         {
             return countWhiteSpaces;
         }
