@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Diagnostics.Contracts;
 
 namespace PoliInf.ExercisesArrays
@@ -10,7 +11,10 @@ namespace PoliInf.ExercisesArrays
         int countDigits = 0;
         int countWhiteSpaces = 0;
         string censoredCapitalLetters = "";
-        int mostImportantBitValue = -1;
+        int mostSignificantBitValue = -1;
+        int decNumber;
+
+
 
         public StringMethods(string text)
         {
@@ -21,7 +25,9 @@ namespace PoliInf.ExercisesArrays
             // b
             censorCapitalLetter(text);
             //c
-            findMostImportantBitValue(text);
+            findMostSignificantBitValue(text);
+            // d
+            convertHexToDecNumber(text);
         }
         
         public string GetCensoredCapitalText()
@@ -32,37 +38,47 @@ namespace PoliInf.ExercisesArrays
         
         public int GetMostImportantBitValue()
         {
-            return mostImportantBitValue;
+            return mostSignificantBitValue;
         }
 
-        void findMostImportantBitValue(string bits)
+        public int GetHexToDecNumber()
         {
-            bool isProblem = false;
+            return decNumber;
+        }
+
+        // d) Wczytaj 4-cyfrową liczbę szesnastkową (np. 1A3F) i wyznacz jej odpowiednik dziesiętny (tu:6719).
+        //     – Wskazówka: zamień każdą cyfrę na wartość 0–15 instrukcją if (osobno cyfry '0'–'9' i litery 'A'–'F'), a wynik licz schematem Hornera: wynik = wynik * 16 + wartosc.
+        //     – Do sprawdzenia wyniku: Convert.ToInt32(tekst, 16) – ale w zadaniu należy napisać konwersję samodzielnie.
+
+        void convertHexToDecNumber(string hex)
+        {
+            
+        }
+
+        void findMostSignificantBitValue(string bits)
+        {
             for (int i = 0; i < bits.Length; i++)
             {
-                if(bits[i] != '1' && bits[i] != '0')
+                if(bits[i] != '1' && bits[i] != '0' || bits.Length != 8)
                 {
-                    isProblem = true;
-                    break;
+                    mostSignificantBitValue = -1;
+                    return;
                 }
             }
             // c) Wczytaj 8-bitową liczbę binarną (np. 00101100) i wypisz wagę najbardziej znaczącej jedynki (tu: 32).
             //     – Wskazówka: pierwsza jedynka od lewej na pozycji i ma wagę 2^(7 − i). Sprawdź, czy wczytano dokładnie 8 znaków 0 lub 1.
-            if( bits.Length == 8 && isProblem == false)
+          
+            for (int i = 0; i < bits.Length; i++)
             {
-                for (int i = 0; i < 8; i++)
+                if (bits[i] == '1')
                 {
-                    if (bits[i] == '1')
-                    {
                         // wynikk = 2^ (7-1)
-                        mostImportantBitValue = 2^(7-i);
-                    }
+                    mostSignificantBitValue = (int) Math.Pow(2,bits.Length -1 -i);
+                    return;
                 }
+                mostSignificantBitValue = 0;
             }
-            else
-            {
-                mostImportantBitValue = -1;
-            }
+            return;
         }
 
         void censorCapitalLetter(string text)
