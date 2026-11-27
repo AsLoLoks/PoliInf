@@ -52,7 +52,24 @@ namespace PoliInf.ExercisesArrays
 
         void convertHexToDecNumber(string hex)
         {
-            
+            if (hex.Length != 4)
+            {
+                decNumber = -1;
+                return;
+            }
+            for ( int i = 0; i < hex.Length; i++)
+            {   // 65-A - 70 - F
+                if (!((hex[i] >= '0' && hex[i] <= '9') || (hex[i] >= 'A' && hex[i] <= 'F')))
+                {
+                    decNumber = -1;
+                    return;
+                }
+            }
+            decNumber = 0;
+            for(int i = 0; i < hex.Length; i++)
+            {
+                hex[i]
+            }
         }
 
         void findMostSignificantBitValue(string bits)
