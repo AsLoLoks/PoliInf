@@ -68,8 +68,16 @@ namespace PoliInf.ExercisesArrays
             decNumber = 0;
             for(int i = 0; i < hex.Length; i++)
             {
-                hex[i]
+                if (hex[i] >= '0' && hex[i] <= '9')
+                {
+                    decNumber = decNumber*16 + hex[i]-48;
+                }
+                if (hex[i] >= 'A' && hex[i] <= 'F')
+                {
+                    decNumber = decNumber * 16 + hex[i] - 55;
+                }
             }
+            return;
         }
 
         void findMostSignificantBitValue(string bits)
